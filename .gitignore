@@ -18,9 +18,5 @@ project/plugins/project/
 
 # End of https://www.gitignore.io/api/sbt
 
-# Created by https://www.gitignore.io/api/intellij-idea
-# Edit at https://www.gitignore.io/?templates=intellij-idea
+.idea
 
-#!! ERROR: intellij-idea is undefined. Use list command to see defined gitignore types !!#
-
-# End of https://www.gitignore.io/api/intellij-idea
