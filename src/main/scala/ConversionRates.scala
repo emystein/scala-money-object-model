@@ -1,4 +1,5 @@
 import java.time.LocalDate
+
 import scala.collection.mutable
 
 class ConversionRates {
