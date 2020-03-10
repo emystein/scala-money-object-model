@@ -11,10 +11,10 @@ class TaxConversionTest extends AnyFunSuite with Matchers {
     val priceTaxes = List(priceTax1, priceTax2)
 
     val conversionRates = new ConversionRates
-    conversionRates.addRate("ARS", "USD", LocalDate.now.minusDays(1), 1 / 62.0)
+    conversionRates.addRate(Currency("ARS"), Currency("USD"), LocalDate.now.minusDays(1), 1 / 62.0)
 
     val taxConversion = new TaxConversion(conversionRates)
 
-    taxConversion.convert(priceTaxes, "USD").get.amount should equal (1.0161 +- 0.0001)
+    taxConversion.convert(priceTaxes, Currency("USD")).get.amount should equal (1.0161 +- 0.0001)
   }
 }

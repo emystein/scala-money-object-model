@@ -10,13 +10,13 @@ class MoneyTest extends AnyFunSuite with Matchers {
     val ars35 = ars25.plus(ars10)
 
     ars35.amount shouldBe 35.00
-    ars35.currency shouldBe "ARS"
+    ars35.currency shouldBe Currency("ARS")
   }
 
   test("multiply an amount by a factor")  {
     val ars30 = ars10.multiplyBy(3)
 
     ars30.amount shouldBe 30.00
-    ars30.currency shouldBe "ARS"
+    ars30.currency shouldBe Currency("ARS")
   }
 }

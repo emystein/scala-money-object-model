@@ -5,5 +5,5 @@ object PriceTax {
 }
 
 case class PriceTax(price: Money, tax: Money) {
-  def currency: String = price.currency
+  def currency: Currency = price.currency
 }
