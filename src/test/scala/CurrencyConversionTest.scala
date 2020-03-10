@@ -10,7 +10,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
     val rates = new ConversionRates
     rates.addRate("ARS", "USD", LocalDate.now, 1 / 63.0)
 
-    rates.convert(ars63, "USD", LocalDate.now) shouldBe Some(Money(1.0, "USD"))
+    rates.convert(ars63, "USD", LocalDate.now) shouldBe Some(Dollars(1.0))
   }
 
   test("given pesos when convert the pesos to dollars using yesterday rate then it should return dollars") {
@@ -22,7 +22,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
 
     val usd = rates.convert(ars62, "USD", LocalDate.now.minusDays(1))
 
-    usd shouldBe Some(Money(1.0, "USD"))
+    usd shouldBe Some(Dollars(1.0))
   }
 
   test("given empty conversion rates when convert to currency then it should throw an exception") {

@@ -18,5 +18,6 @@ class MoneyTest extends AnyFunSuite with Matchers {
     val ars6 = ars2.multiplyBy(3)
 
     ars6.amount shouldBe 6.00
+    ars6.currency shouldBe "ARS"
   }
 }
