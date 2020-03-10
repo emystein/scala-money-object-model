@@ -4,7 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class TaxConversionTest extends AnyFunSuite with Matchers {
-  test("convertTaxes") {
+  test("convert taxes") {
     val priceTax1 = PriceTax(price = Money(100.0, "ARS"), tax = Money(21.0, "ARS"))
     val priceTax2 = PriceTax(price = Money(200.0, "ARS"), tax = Money(42.0, "ARS"))
 

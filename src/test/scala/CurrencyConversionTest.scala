@@ -4,7 +4,7 @@ import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
 class CurrencyConversionTest extends AnyFunSuite with Matchers {
-  test("givenPesosWhenConvertThePesosToDollarsThenItShouldReturnDollars") {
+  test("given pesos when convert the pesos to dollars then it should return dollars") {
     val ars63 = Money(63.0, "ARS")
 
     val rates = new ConversionRates
@@ -13,7 +13,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
     rates.convert(ars63, "USD", LocalDate.now) shouldBe Some(Money(1.0, "USD"))
   }
 
-  test("givenPesosWhenConvertThePesosToDollarsUsingYesterdayRateThenItShouldReturnDollars") {
+  test("given pesos when convert the pesos to dollars using yesterday rate then it should return dollars") {
     val ars62 = Money(62.0, "ARS")
 
     val rates = new ConversionRates
@@ -25,7 +25,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
     usd shouldBe Some(Money(1.0, "USD"))
   }
 
-  test("givenEmptyConversionRatesWhenConvertToCurrencyThenItShouldThrowAnException") {
+  test("given empty conversion rates when convert to currency then it should throw an exception") {
     val ars62 = Money(62.0, "ARS")
 
     val rates = new ConversionRates
@@ -33,7 +33,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
     rates.convert(ars62, "NOTFOUND", LocalDate.now) shouldBe None
   }
 
-  test("givenACurrencyWhenConvertToAnUnknownCurrencyThenItShouldThrowAnException") {
+  test("given acurrency when convert to an unknown currency then it should throw an exception") {
     val ars62 = Money(62.0, "ARS")
 
     val rates = new ConversionRates
@@ -42,7 +42,7 @@ class CurrencyConversionTest extends AnyFunSuite with Matchers {
     rates.convert(ars62, "NOTFOUND", LocalDate.now) shouldBe None
   }
 
-  test("givenTwoConversionRatesForTheSameTargetCurrencyAndDateWhenAddTheConversionRatesThenTheSecondConversionRateShouldOverrideTheFirstOne") {
+  test("given two conversion rates for the same target currency and date when add the conversion rates then the second conversion rate should override the first one") {
     val ars63 = Money(62.0, "ARS")
 
     val rates = new ConversionRates
