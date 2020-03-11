@@ -1,1 +1,1 @@
-case class Currency(value: String)
+case class Currency(name: String)

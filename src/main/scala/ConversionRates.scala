@@ -1,18 +1,10 @@
 import java.time.LocalDate
 
-import scala.collection.mutable
+case class ConversionRates(rates: Map[ConversionDirection, Map[LocalDate, ConversionRate]] = Map.empty) {
+  def addRate(conversionDirection: ConversionDirection, conversionDate: LocalDate, rate: Double): ConversionRates = {
+    val directionRates = rates.getOrElse(conversionDirection, Map.empty) + (conversionDate -> ConversionRate(conversionDirection, rate))
 
-class ConversionRates {
-  private val rates: mutable.Map[ConversionDirection, mutable.Map[LocalDate, ConversionRate]] = mutable.Map.empty
-
-  def addRate(sourceCurrency: Currency, targetCurrency: Currency, conversionDate: LocalDate, rate: Double) = {
-    val conversionDirection = ConversionDirection(sourceCurrency, targetCurrency)
-
-    val ratesByDate = rates.getOrElse(conversionDirection, mutable.Map.empty)
-
-    ratesByDate += (conversionDate -> ConversionRate(conversionDirection, conversionDate, rate))
-
-    rates.put(conversionDirection, ratesByDate)
+    ConversionRates(rates + (conversionDirection -> directionRates))
   }
 
   def convert(money: Money, targetCurrency: Currency, conversionDate: LocalDate): Option[Money] = {
