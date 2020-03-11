@@ -3,13 +3,23 @@ import java.time.LocalDate
 import scala.collection.mutable
 
 class ConversionRates {
-  private val rates: mutable.Set[ConversionRate] = mutable.Set.empty
+  private val rates: mutable.Map[ConversionDirection, mutable.Map[LocalDate, ConversionRate]] = mutable.Map.empty
 
-  def addRate(sourceCurrency: Currency, targetCurrency: Currency, conversionDate: LocalDate, rate: Double) =
-    rates += new ConversionRate(sourceCurrency, targetCurrency, conversionDate, rate)
+  def addRate(sourceCurrency: Currency, targetCurrency: Currency, conversionDate: LocalDate, rate: Double) = {
+    val conversionDirection = ConversionDirection(sourceCurrency, targetCurrency)
+
+    val ratesByDate = rates.getOrElse(conversionDirection, mutable.Map.empty)
+
+    ratesByDate += (conversionDate -> ConversionRate(conversionDirection, conversionDate, rate))
+
+    rates.put(conversionDirection, ratesByDate)
+  }
 
   def convert(money: Money, targetCurrency: Currency, conversionDate: LocalDate): Option[Money] = {
-    val conversionRate = rates.find(rate => rate.canConvert(money.currency, targetCurrency, conversionDate))
-    conversionRate.map(_.convert(money))
+    val conversionDirection = ConversionDirection(money.currency, targetCurrency)
+
+    rates.get(conversionDirection)
+      .flatMap(ratesByDate => ratesByDate.get(conversionDate))
+      .map(rate => rate.convert(money))
   }
 }
