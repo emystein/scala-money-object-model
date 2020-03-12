@@ -7,20 +7,23 @@ case class ConversionRates(rates: Map[ConversionDirection, Map[LocalDate, Conver
     ConversionRates(rates + (conversionDirection -> directionRates))
   }
 
-  def from(currency: Currency): RatesFromCurrency = {
-    val destinationRates = rates.keys.filter(k => k.originCurrency == currency)
-      .map(k => (k.destinationCurrency -> rates(k)))
-      .toMap
+  def from(currency: Currency): DestinationCurrencyRates = {
+    DestinationCurrencyRates(ratesFromCurrency(currency))
+  }
 
-    RatesFromCurrency(currency, destinationRates)
+  private def ratesFromCurrency(currency: Currency) = {
+    rates.keys
+      .filter(conversionDirection => conversionDirection.originCurrency == currency)
+      .map(conversionDirection => (conversionDirection.destinationCurrency -> rates(conversionDirection)))
+      .toMap
   }
 }
 
-case class RatesFromCurrency(from: Currency, destinationRates: Map[Currency, Map[LocalDate, ConversionRate]]) {
-  def to(currency: Currency): RatesToCurrency = RatesToCurrency(currency, destinationRates.getOrElse(currency, Map.empty))
+case class DestinationCurrencyRates(rates: Map[Currency, Map[LocalDate, ConversionRate]]) {
+  def to(currency: Currency): DateRates = DateRates(rates.getOrElse(currency, Map.empty))
 }
 
-case class RatesToCurrency(to: Currency, dateRates: Map[LocalDate, ConversionRate]) {
-  def forDate(date: LocalDate): Option[ConversionRate] = dateRates.get(date)
+case class DateRates(rates: Map[LocalDate, ConversionRate]) {
+  def forDate(date: LocalDate): Option[ConversionRate] = rates.get(date)
 }
 

@@ -9,7 +9,7 @@ class ConversionRatesDslTest extends AnyFunSuite with Matchers {
     val rates = ConversionRates()
       .addRate(arPesosToUsDollars, today, 1 / 63.0)
 
-    rates.from(arPesos).to(usDollars).dateRates shouldBe Map(today -> ConversionRate(arPesosToUsDollars, 1 / 63.0))
+    rates.from(arPesos).to(usDollars).rates shouldBe Map(today -> ConversionRate(arPesosToUsDollars, 1 / 63.0))
   }
 
   test("Convert from ars to usd") {
