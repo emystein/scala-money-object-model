@@ -7,7 +7,7 @@ object Ars {
   def apply(amount: Double) = Money(amount, Currency("ARS"))
 }
 
-object Dollars {
+object UsDollars {
   def apply(amount: Double) = Money(amount, Currency("USD"))
 }
 

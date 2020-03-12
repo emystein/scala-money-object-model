@@ -1,5 +1,5 @@
 import ConversionDirections.arPesosToUsDollars
-import Currencies.{arPesos, usDollars}
+import Currencies._
 import RelativeCalendar.{today, yesterday}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
